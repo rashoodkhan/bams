@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     #User Made Apps
-    'codes'
+    'codes',
+    'rate'
 )
 
 MIDDLEWARE_CLASSES = (
