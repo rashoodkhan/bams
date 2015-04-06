@@ -14,3 +14,5 @@ admin.site.register(SurfaceCode)
 admin.site.register(SpecialRequirementCode)
 admin.site.register(ActionCode)
 admin.site.register(Type)
+
+admin.site.register(MetaDataInformation)

@@ -15,6 +15,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_APP_DIR = os.path.realpath(os.path.dirname(__file__))
+PROJECT_DIR = os.path.dirname(PROJECT_APP_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -110,15 +113,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,'templates'),
-    os.path.join(os.path.dirname(__file__),'templates')
+    os.path.join(PROJECT_DIR, 'codes/templates'),
+    os.path.join(os.path.dirname(__file__),'templates'),
 )
 
 STATICFILES_DIR = (
-    os.path.join(BASE_DIR,'static')
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    os.path.join(PROJECT_DIR,'static')
 )

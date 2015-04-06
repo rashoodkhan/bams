@@ -112,3 +112,12 @@ class SpecialRequirementCode(models.Model):
 	def __str__(self):
 		return self.code
 
+"""
+Stores all the other Codes Models. So if a new model is added, the MetaData should be updated!
+"""
+class MetaDataInformation(models.Model):
+	name = models.CharField(max_length=300)
+
+	def __str__(self):
+		return self.name
+
