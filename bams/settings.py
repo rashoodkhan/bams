@@ -41,6 +41,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #3rd Party Apps
+    'bootstrap3',
+
     #User Made Apps
     'codes',
     'rate'
