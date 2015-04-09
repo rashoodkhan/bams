@@ -166,4 +166,129 @@ def add(request,code_id):
 	elif code_id == 13:
 		result = SpecialRequirementCodeForm()
 
-	return render(request,'codes/add_form.html',{'form':result,'title':title})
+	return render(request,'codes/add_form.html',{'form':result,'title':title,'code_id':code_id})
+
+def edit_code(request,code_id,id):
+	code_id = int(code_id)
+	id = int(id)
+	form = None
+
+	try:
+		title = MetaDataInformation.objects.all().filter(pk=code_id)[0].name
+	except Exception:
+		title = "Not Found"
+
+	#If the form is submitted the below code adds it to the database
+	if request.method == "POST":
+		form = None
+		if code_id == 1:
+			p = Priority.objects.all().filter(pk=id)[0]
+			form = PriorityForm(request.POST,instance=p)
+
+		elif code_id == 2:
+			u = UnitOfMeasure.objects.all().filter(pk=id)[0]
+			form = UnitOfMeasureForm(request.POST,instance=u)
+
+		elif code_id == 3:
+			r = ConstructionType.objects.all().filter(pk=id)[0]
+			form =ConstructionTypeForm(request.POST,instance=r)
+
+		elif code_id == 4:
+			s = Site.objects.all().filter(pk=id)[0]
+			form = SiteForm(request.POST,instance=s)
+
+		elif code_id == 5:
+			x = BuildingType.objects.all().filter(pk=id)[0]
+			form = SiteGroupForm(request.POST,instance=x)
+
+		elif code_id == 6:
+			x = BuildingType.objects.all().filter(pk=id)[0]
+			form = BuildingTypeForm(request.POST,instance=x)
+
+		elif code_id == 7:
+			x = Building.objects.all().filter(pk=id)[0]
+			form = BuildingCodeForm(request.POST,instance=x)
+
+		elif code_id == 8:
+			x = Type.objects.all().filter(pk=id)[0]
+			form = TypeForm(request.POST,instance=x)
+
+		elif code_id == 9:
+			x = ItemCode.objects.all().filter(pk=id)[0]
+			form = ItemCodeForm(request.POST,instance=x)
+
+		elif code_id == 10:
+			x = FinishingCode.objects.all().filter(pk=id)[0]
+			form = FinishingCodeForm(request.POST,instance=x)
+
+		elif code_id == 11:
+			x = SurfaceCode.objects.all().filter(pk=id)[0]
+			form = SurfaceCodeForm(request.POST,instance=x)
+
+		elif code_id == 12:
+			x = ActionCode.objects.all().filter(pk=id)[0]
+			form = ActionCodeForm(request.POST,instance=x)
+
+		elif code_id == 13:
+			x = SpecialRequirementCode.objects.all().filter(pk=id)[0]
+			form = SpecialRequirementCodeForm(request.POST,instance=x)
+
+		if form.is_valid():
+			form.save(commit=True)
+			return render(request,'codes/add_success.html',{'title':title,'edited':1})
+
+	if code_id == 1:
+		p = Priority.objects.all().filter(pk=id)
+		form = PriorityForm(instance=p[0])
+
+	elif code_id == 2:
+		u = UnitOfMeasure.objects.all().filter(pk=id)
+		form = UnitOfMeasureForm(instance=u[0])
+
+	elif code_id == 3:
+		r = ConstructionType.objects.all().filter(pk=id)
+		form = ConstructionTypeForm(instance=r[0])
+
+	elif code_id == 4:
+		s = Site.objects.all().filter(pk=id)
+		form = SiteForm(instance=s[0])
+
+	elif code_id == 5:
+		s = SiteGroup.objects.all().filter(pk=id)
+		form = SiteGroupForm(instance=s[0])
+
+	elif code_id == 6:
+		x = BuildingType.objects.all().filter(pk=id)
+		form = BuildingTypeForm(instance=x[0])
+
+	elif code_id == 7:
+		x = Building.objects.all().filter(pk=id)
+		form = BuildingCodeForm(instance=x[0])
+
+	elif code_id == 8:
+		x = Type.objects.all().filter(pk=id)
+		form = TypeForm(instance=x[0])
+
+	elif code_id == 9:
+		x = ItemCode.objects.all().filter(pk=id)
+		form = ItemCodeForm(instance=x[0])
+
+	elif code_id == 10:
+		x = FinishingCode.objects.all().filter(pk=id)
+		form = FinishingCodeForm(instance=x[0])
+
+	elif code_id == 11:
+		x = SurfaceCode.objects.all().filter(pk=id)
+		form = SurfaceCodeForm(instance=x[0])
+
+	elif code_id == 12:
+		x = ActionCode.objects.all().filter(pk=id)
+		form = ActionCodeForm(instance=x[0])
+
+	elif code_id == 13:
+		x = SpecialRequirementCode.objects.all().filter(pk=id)
+		form = SpecialRequirementCodeForm(instance=x[0])
+
+	return render(request,'codes/add_form.html',{'form':form,'title':title,'code_id':code_id,'edited':1,'id':id})
+
+

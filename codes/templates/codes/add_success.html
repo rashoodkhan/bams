@@ -3,7 +3,7 @@
     <div class="container">
         <div class="jumbotron">
             <h1>{{ title }}</h1>
-            <p class="lead">The {{ title }} code has been added successfully.</p>
+            <p class="lead">The {{ title }} code has been {% if edited == 1 %} edited {% else %} added {% endif %} successfully.</p>
         </div>
     </div>
 {% endblock %}
