@@ -1,0 +1,45 @@
+{% extends "codes/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ title }} Listing</h1>
+            <p class="lead">The following lists all the codes added for {{ title }}. Currently existing codes can be edited by clicking on the edit button next to each code.</p>
+            <p class="lead">To add a new {{ title }} code - <a href="/codes/{{ code_id }}/add" type="button" class="btn btn-primary">Add {{ title }}</a></p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for d in data %}
+                        <tr>
+                            <td>
+                                {% if choice == 1 %}
+                                    <p class="lead">{{ d.description }}</p>
+                                {% elif choice == 2 %}
+                                    <p class="lead">{{ d.name }}</p>
+                                {% elif choice == 3 %}
+                                    <p class="lead">{{ d.route_seq }}</p>
+                                {% endif %}
+
+                            </td>
+                            <th scope="row">
+                                <a type="button" class="btn btn-primary btn-block" href="/codes/{{ code_id }}/edit/{{ d.id }}">Edit</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div></div>
+{%  endblock %}

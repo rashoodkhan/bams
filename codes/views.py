@@ -12,7 +12,64 @@ def codes(request):
 	return render(request, 'codes/codes.html',{'data':meta_data})
 
 def edit(request,code_id):
-	pass
+	code_id = int(code_id)
+	results = None
+	try:
+		title = MetaDataInformation.objects.all().filter(pk=code_id)[0].name
+	except Exception:
+		title = "Not Found"
+
+	"""
+	Some models do not have description, hence the choice is used.
+	If choice is 1 => Description field is present
+	If choice is 2 => Name field is present
+	If choice is 3 => Route Seq has to be displayed
+
+	By default, choice is 1
+	"""
+	choice = 1
+
+	if code_id == 1:
+		results = Priority.objects.all()
+
+	elif code_id == 2:
+		results = UnitOfMeasure.objects.all()
+
+	elif code_id == 3:
+		results = ConstructionType.objects.all()
+		choice = 2
+
+	elif code_id == 4:
+		results = Site.objects.all()
+		choice = 2
+
+	elif code_id == 5:
+		results = SiteGroup.objects.all()
+
+	elif code_id == 6:
+		results = BuildingType.objects.all()
+
+	elif code_id == 7:
+		results = Building.objects.all()
+		choice = 3
+
+	elif code_id == 8:
+		results = Type.objects.all()
+		choice = 2
+
+	elif code_id == 9:
+		results = ItemCode.objects.all()
+
+	elif code_id == 10:
+		results = FinishingCode.objects.all()
+
+	elif code_id == 12:
+		results = ActionCode.objects.all()
+
+	elif code_id == 13:
+		results = SpecialRequirementCode.objects.all()
+
+	return render(request,'codes/codes_edit.html',{'data':results,'title':title,'code_id':code_id,'choice':choice})
 
 def add(request,code_id):
 	code_id = int(code_id)

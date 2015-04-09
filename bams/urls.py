@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$','codes.views.index',name="index"),
     url(r'^codes/(?P<code_id>\d+)/add$','codes.views.add',name="code_add"),
-    url(r'^codes/','codes.views.codes',name="codes"),
     url(r'^codes/(?P<code_id>\d+)/edit$','codes.views.edit',name="code_edit"),
+    url(r'^codes/','codes.views.codes',name="codes"),
+
 ]
