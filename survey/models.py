@@ -10,6 +10,15 @@ class Survey(models.Model):
 	def __str__(self):
 		return self.building.route_seq + " :: " + self.elevation + " :: " + self.type.name
 
+	def getRoute(self):
+		return self.building.route_seq
+
+	def getType(self):
+		return self.type.name
+
+	def getElevation(self):
+		return self.elevation
+
 class SurveyItem(models.Model):
 	survey = models.ForeignKey(Survey)
 	item = models.ForeignKey(ItemCode)

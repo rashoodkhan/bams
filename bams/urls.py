@@ -16,6 +16,8 @@ urlpatterns = [
 
     url(r'^rates/(?P<rate_id>\d+)/edit','rate.views.edit_rate',name="edit_rate"),
     url(r'^rates/add','rate.views.add_rate',name="add_rate"),
-    url(r'^rates/','rate.views.index',name="rates_index"),
+    url(r'^rates/?','rate.views.index',name="rates_index"),
+
+    url(r'^survey/?','survey.views.index',name="survey_index"),
 
 ]
