@@ -1,0 +1,74 @@
+{% extends "codes/base.html" %}
+
+{%  block content %}
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Rate Settings</h1>
+            <p class="lead">All the rates are mentioned below. Any given rate can be edited by clicking on the edit button.</p>
+            <p class="lead">To add a new rate <a type="button" class="btn btn-primary" href="/rates/add">Add Rate</a></p>
+        </div>
+
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Finishing Code
+                </th>
+                <th>
+                    Action Code
+                </th>
+                <th>
+                    UOM
+                </th>
+                <th>
+                    Rate
+                </th>
+                <th>
+                    Edit
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for rate in rates %}
+            <tr>
+                <td>
+                    <p class="lead">{{ rate.name }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.type }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.item }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.finishing_code }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.action_code }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.unit }}</p>
+                </td>
+                <td>
+                    <p class="lead">{{ rate.rate }}</p>
+                </td>
+                <th scope="row">
+                    <a type="button" class="btn btn-primary btn-block" href="/rates/{{ rate.id }}/edit">Edit</a>
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

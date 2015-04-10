@@ -1,0 +1,23 @@
+{% extends "codes/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron"><h1>{% if added == 1 %}Add{% else %}Update{% endif %} Rate</h1></div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" class="form" {% if added == 1 %} action="/rates/add"
+                {% else %} action="/rates/{{ rate_id }}/edit" {% endif %}>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% if edited == 1 %} {% bootstrap_icon "plus" %} Update Rate
+                            {% else %} {% bootstrap_icon "plus" %} Add Rate {% endif %}
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

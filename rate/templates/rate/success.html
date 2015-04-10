@@ -1,0 +1,9 @@
+{% extends "codes/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Rate Settings</h1>
+            <p class="lead">The rate has been {% if edited == 1 %} edited {% else %} added {% endif %} successfully.</p>
+        </div>
+    </div>
+{% endblock %}
