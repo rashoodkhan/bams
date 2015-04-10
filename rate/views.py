@@ -11,8 +11,8 @@ def add_rate(request):
 		form = RateForm(request.POST)
 		if form.is_valid():
 			form.save(commit=True)
-			render(request,'rate/success.html',{'added':1})
-
+			rates = Rate.objects.all()
+			return render(request,'rate/rates.html',{'rates':rates,'success_added':1})
 	form = RateForm()
 	return render(request,'rate/add_rate.html',{'form':form,'added':1})
 
@@ -22,8 +22,9 @@ def edit_rate(request,rate_id):
 	if request.method == "POST":
 		form = RateForm(request.POST,instance=rate)
 		if form.is_valid():
+			rates = Rate.objects.all()
 			form.save(commit=True)
-			return render(request,'rate/success.html',{'edited':1})
+			return render(request,'rate/rates.html',{'rates':rates,'success_edited':1})
 	else:
 		form = RateForm(instance=rate)
 		return render(request,'rate/add_rate.html',{'form':form,'edited':1,'rate_id':rate_id})
