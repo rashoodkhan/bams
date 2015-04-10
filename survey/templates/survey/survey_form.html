@@ -1,0 +1,32 @@
+{% extends "codes/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron"><h1>Survey | Add Building</h1>
+        <p class="lead">The building information has to be entered below. Each building has to be unique with respect to the route sequence, elevation and type.</p>
+        </div>
+
+        {% if error == 1 %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> The building details entered now have previously been entered.
+                    The building should be unique with the combination of Route Sequence, Elevation and Type.
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-offset-0 col-md-5">
+                <form method="post" class="form" action="/survey/add">
+                    {% csrf_token %}
+                    {% bootstrap_form_errors form %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary btn-block">
+                            {% bootstrap_icon "plus" %} Add {{ title }}
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^rates/add','rate.views.add_rate',name="add_rate"),
     url(r'^rates/?','rate.views.index',name="rates_index"),
 
+    url(r'^survey/add','survey.views.add_survey',name="add_survey"),
     url(r'^survey/?','survey.views.index',name="survey_index"),
 
 ]
