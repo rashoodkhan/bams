@@ -6,6 +6,20 @@
             <p class="lead">The following lists all the codes added for {{ title }}. Currently existing codes can be edited by clicking on the edit button next to each code.</p>
             <p class="lead">To add a new {{ title }} code - <a href="/codes/{{ code_id }}/add" type="button" class="btn btn-primary">Add {{ title }}</a></p>
         </div>
+
+        {% if success_added == 1 %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The code been added successfully!
+            </div>
+        {% elif success_edited == 1 %}
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The {{ title }} code been updated successfully!
+            </div>
+        {% endif %}
+
+
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-hover">

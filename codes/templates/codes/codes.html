@@ -1,9 +1,28 @@
 {%  extends "codes/base.html" %}
 
 {% block content %}
-<div class="container">
-    <table class="table table-hover">
-        <thead>
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1>Codes</h1>
+            <p class="lead">All the codes are defined below. New data can be added to given codes to be used in the Survey.</p>
+            <p class="lead">Click Add button to add new data, and Edit button to view or edit existing data.</p>
+        </div>
+
+        {% if success_added == 1 %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The code been added successfully!
+            </div>
+        {% elif success_edited == 1 %}
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The code been updated successfully!
+            </div>
+        {% endif %}
+
+        <table class="table table-hover">
+            <thead>
             <tr>
                 <th>
                     Name
@@ -15,23 +34,23 @@
                     Edit
                 </th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             {% for d in data %}
-            <tr>
-                <td>
-                    <p class="lead">{{ d.name }}</p>
-                </td>
-                <th scope="row">
-                    <a type="button" class="btn btn-success btn-block" href="/codes/{{ d.id }}/add">Add</a>
-                </th>
-                <th scope="row">
-                    <a type="button" class="btn btn-primary btn-block" href="/codes/{{ d.id }}/edit">Edit</a>
-                </th>
-            </tr>
+                <tr>
+                    <td>
+                        <p class="lead">{{ d.name }}</p>
+                    </td>
+                    <th scope="row">
+                        <a type="button" class="btn btn-success btn-block" href="/codes/{{ d.id }}/add">Add</a>
+                    </th>
+                    <th scope="row">
+                        <a type="button" class="btn btn-primary btn-block" href="/codes/{{ d.id }}/edit">Edit</a>
+                    </th>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
