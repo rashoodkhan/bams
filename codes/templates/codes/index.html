@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>BAMS | Derby Designs</title>
-</head>
-<body>
-Welcome to Derby Design's BAMS!
-</body>
-</html>
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>BAMS | Derby Designs</h1>
+        <p class="lead">BAMS is Building Asset Management System developed by Derby Designs to collect
+        survey data from various sites and provide consolidated reports to the clients.</p>
+        <p><a href="/faq" type="button" class="btn btn-primary btn-lg">Learn More</a> </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Codes</h2>
+            <p>Codes are defined which are constants for a Survey. For a survey
+            to be entered, all the metrics use short-codes or codes as defined in
+            this section.
+            </p>
+            <p>
+                <a href="/codes" type="button" class="btn btn-default">{% bootstrap_icon "inbox" %} Code Details</a>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Survey</h2>
+            <p>Survey is collected physically from various sites and the data is entered here.
+            The survey is divided into two parts, i.e. Adding a Building and then adding its data.
+            </p>
+
+            <p>
+                <a href="/survey" type="button" class="btn btn-default">{% bootstrap_icon "list-alt" %} Survey Details</a>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Rates</h2>
+            <p>Rate section of the application defines all the rates for each combination of various codes.
+            Once the rates are defined, cost related reports can be generated.
+            </p>
+            <p>
+                <a href="/rates" type="button" class="btn btn-default">{% bootstrap_icon "usd" %} Rate Details</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
