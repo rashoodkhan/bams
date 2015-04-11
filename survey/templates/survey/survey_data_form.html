@@ -1,0 +1,24 @@
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron"><h1>Survey | Add Building Data</h1>
+        <p class="lead">The survey data has to be entered below. Please select appropriate choices from given input.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-0 col-md-5">
+                <form method="post" class="form">
+                    {% csrf_token %}
+                    {% bootstrap_form_errors form %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary btn-block">
+                            {% bootstrap_icon "plus" %} Add Data
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

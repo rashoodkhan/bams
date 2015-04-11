@@ -19,6 +19,9 @@ class Survey(models.Model):
 	def getElevation(self):
 		return self.elevation
 
+	def pp(self):
+		return self.getRoute() + " " + self.getElevation() + " " + self.getType()
+
 class SurveyItem(models.Model):
 	survey = models.ForeignKey(Survey)
 	item = models.ForeignKey(ItemCode)
@@ -29,8 +32,37 @@ class SurveyItem(models.Model):
 	uom = models.ForeignKey(UnitOfMeasure)
 	special_requirement = models.ForeignKey(SpecialRequirementCode)
 	priority = models.ForeignKey(Priority)
-	remarks = models.CharField(max_length=300)
-	cost = models.DecimalField(max_digits=20,decimal_places=2)
+	remarks = models.CharField(max_length=300,blank=True)
+	cost = models.DecimalField(max_digits=20,decimal_places=2,blank=True)
 
 	def __str__(self):
 		return self.survey.__str__() + " :: " + self.item.code
+
+	def getItem(self):
+		return self.item.description
+
+	def getFinishingCode(self):
+		codes = ""
+		for x in self.finishing_code:
+			codes = codes + " " + str(x)
+		return codes
+
+	def getCondition(self):
+		codes = ""
+		for x in self.condition:
+			codes = codes + " " + str(x)
+		return codes
+
+	def getAction(self):
+		return self.action.code
+
+	def getUOM(self):
+		return self.uom.code
+
+	def getSpecialReq(self):
+		return self.special_requirement.code
+
+	def getPriority(self):
+		return self.priority.description
+
+

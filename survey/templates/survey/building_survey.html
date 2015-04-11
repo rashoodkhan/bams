@@ -1,0 +1,101 @@
+{% extends 'codes/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Survey | {{ survey.getRoute }}</h1>
+            <p class="lead">All the survey data corresponding to - </p>
+            <ul>
+                <li><p class="lead">Route Sequence - <strong>{{ survey.getRoute }}</strong></p> </li>
+                <li><p class="lead">Elevation - <strong>{{ survey.elevation }}</strong></p> </li>
+                <li><p class="lead">Type - <strong>{{ survey.getType }}</strong></p> </li>
+            </ul>
+            <p class="lead">is given below.</p>
+            <p class="lead">New data can be entered by clicking the Add Data Button below. Existing data
+            can be modified by clicking the Edit button next to each data in the table below</p>
+
+            <a href="/survey/{{ survey.id }}/add" type="button" class="btn btn-primary btn-lg">Add Survey</a>
+        </div>
+
+        {% if success_added == 1 %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The data for the building has been added.
+            </div>
+        {% endif %}
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Types
+                </th>
+                <th>
+                    Conditions
+                </th>
+                <th>
+                    Actions
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    UOM
+                </th>
+                <th>
+                    Special Req
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Remarks
+                </th>
+                <th>
+                    Edit
+                </th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for d in data %}
+                <tr>
+                    <td>
+                        <p class="lead">{{ d.getItem }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.getFinishingCode }}</p>
+                    </td>
+                    <td>
+                       <p class="lead">{{ d.getCondition }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.getAction }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.unit }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.getUOM }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.getSpecialReq }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.getPriority }}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{ d.remarks }}</p>
+                    </td>
+                    <th>
+                        <a href="/survey/{{ survey.id }}/edit/{{ d.id }}" type="button" class="btn btn-primary">Edit</a>
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

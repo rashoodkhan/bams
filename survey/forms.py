@@ -1,5 +1,6 @@
 __author__ = 'rashid'
 from django.forms import ModelForm, ValidationError
+from django import forms
 from codes.models import *
 from codes.models import Building,Type
 
@@ -32,4 +33,12 @@ class SurveyForm(ModelForm):
 				self.add_error('building',msg)
 				self.add_error('elevation',msg)
 				self.add_error('type',msg)
+
+class SurveyItemForm(ModelForm):
+	types = forms.ModelMultipleChoiceField(queryset=FinishingCode.objects.all())
+	conditions = forms.ModelMultipleChoiceField(queryset=SurfaceCode.objects.all())
+
+	class Meta:
+		model = SurveyItem
+		fields = ['item','action','unit','uom','special_requirement','priority','remarks']
 
