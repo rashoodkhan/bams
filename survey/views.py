@@ -30,7 +30,30 @@ def building_survey(request,building_id):
 
 def add_building_data(request,building_id):
 	if request.method == "POST":
-		#DO POST Related stuff
-		pass
+		form = SurveyItemForm(request.POST)
+		if form.is_valid():
+			survey_data = form.save(commit=False)
+			building = Survey.objects.all().filter(pk=building_id)[0]
+			survey_data.survey = building
+			survey_data.cost = 0.0
+
+			finish_codes = form.cleaned_data['types']
+			f_codes = []
+			for f in finish_codes:
+				f_codes.append(str(f.code))
+
+			surface_states = form.cleaned_data['conditions']
+			s_codes = []
+			for s in surface_states:
+				s_codes.append(str(s.code))
+
+			survey_data.finishing_code = f_codes
+			survey_data.condition = s_codes
+
+			survey_data.save()
+			survey_items = SurveyItem.objects.all().filter(survey=building)
+			return render(request,'survey/building_survey.html',{'survey':building,'data':survey_items,'success_added':1})
+		else:
+			return render(request,'survey/survey_data_form.html',{'form':form})
 	form = SurveyItemForm()
 	return render(request,'survey/survey_data_form.html',{'form':form})
