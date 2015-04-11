@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% block content %}
     <div class="container">
-        <div class="jumbotron"><h1>Survey | Add Building Data</h1>
+        <div class="jumbotron"><h1>Survey | {% if edit_data == 1 %}Edit{% else %}Add{% endif %} Building Data</h1>
         <p class="lead">The survey data has to be entered below. Please select appropriate choices from given input.</p>
         </div>
 
@@ -14,7 +14,7 @@
                     {% bootstrap_form form %}
                     {% buttons %}
                         <button type="submit" class="btn btn-primary btn-block">
-                            {% bootstrap_icon "plus" %} Add Data
+                            {% bootstrap_icon "plus" %} {% if edit_data == 1 %}Edit{% else %}Add{% endif %} Data
                         </button>
                     {% endbuttons %}
                 </form>
