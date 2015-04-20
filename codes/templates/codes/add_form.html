@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <form method="post" class="form" {% if edited == 1 %} action="/codes/{{ code_id }}/edit/{{ id }}"
+                <form method="post" autocomplete="off" class="form" {% if edited == 1 %} action="/codes/{{ code_id }}/edit/{{ id }}"
                 {% else %} action="/codes/{{ code_id }}/add" {% endif %}>
                     {% csrf_token %}
                     {% bootstrap_form form %}
