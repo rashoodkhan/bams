@@ -53,3 +53,6 @@ def getSurveyForm(request,type_id,report_id):
 	                                            'form':form,
 	                                            'report_id':report_id,
 	                                            'report':report})
+
+def GenerateReport(request,type_id,report_id):
+	pass
