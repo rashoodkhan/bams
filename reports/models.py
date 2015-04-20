@@ -11,4 +11,4 @@ class ReportMetaData(models.Model):
 	type = models.ForeignKey(ReportType,null=True)
 
 	def __str__(self):
-		return self.name
+		return self.type.name+" :: "+self.name

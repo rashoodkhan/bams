@@ -1,3 +1,5 @@
 from django.contrib import admin
+from models import ReportType,ReportMetaData
 
-# Register your models here.
+admin.site.register(ReportType)
+admin.site.register(ReportMetaData)
