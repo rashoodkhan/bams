@@ -47,7 +47,8 @@ INSTALLED_APPS = (
     #User Made Apps
     'codes',
     'rate',
-    'survey'
+    'survey',
+    'reports',
 )
 
 MIDDLEWARE_CLASSES = (
