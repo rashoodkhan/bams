@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^survey/add','survey.views.add_survey',name="add_survey"),
     url(r'^survey/?','survey.views.index',name="survey_index"),
 
+    url(r'^reports/(?P<type_id>\d+)/(?P<report_id>\d+)/?','reports.views.getSurveyForm',name="getSurveyForm"),
     url(r'^reports/?','reports.views.index',name="reports_index"),
 
 ]

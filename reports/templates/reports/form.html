@@ -1,0 +1,23 @@
+{% extends "codes/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron"><h1>{% if type_id == 1 %}Action {% elif type_id == 2 %}Cost {% else %} Survey {% endif %} Report by {{ report.name }}</h1>
+            <p class="lead">The following generates the report for {{ report.name }}</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" autocomplete="off" class="form" action="/reports/{{ type_id }}/{{ report_id }}/submit/">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "print" %} Get Report
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
