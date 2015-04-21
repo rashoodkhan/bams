@@ -118,11 +118,15 @@ def GenerateReport(request,type_id,report_id):
 
 			if report_id is 2 and form.is_valid():
 				no_priority = False
+				priority_chosen = None
 				zone = int(request.POST["zone"])
 				try:
 					priority = int(request.POST["priority"])
 				except Exception:
 					no_priority = True
+
+
+
 
 				site = Site.objects.all().filter(id=zone)[0]
 				site_zone = SiteGroup.objects.all().filter(site=site)
@@ -143,10 +147,6 @@ def GenerateReport(request,type_id,report_id):
 
 				buildings = Building.objects.filter(pk__in = wanted_buildings)
 
-				print ""
-				print buildings
-				print ""
-
 				if no_priority:
 					context_dict = {'title':'Actions Report by Zone',
 					                'buildings':buildings,
@@ -165,9 +165,26 @@ def GenerateReport(request,type_id,report_id):
 						print survey_items
 					context_dict['data'] = data
 
-					print ""
-					print data
-					print ""
+					return render(request,'reports/action_zone_display.html',context_dict)
+				else:
+					priority_chosen = Priority.objects.filter(id=priority)[0]
+					context_dict = {'title':'Actions Report by Zone',
+					                'buildings':buildings,
+					                'site':site}
+
+					data = {}
+					for b in buildings:
+						surveys_temp = Survey.objects.filter(building=b)
+						wanted_surveys = set()
+						for survey in surveys_temp:
+							survey_items = SurveyItem.objects.filter(survey=survey)
+							for item in survey_items:
+								wanted_surveys.add(item.id)
+						survey_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+						survey_items = survey_items.filter(priority=priority_chosen)
+						data[str(b.route_seq)] = survey_items
+						print survey_items
+					context_dict['data'] = data
 
 					return render(request,'reports/action_zone_display.html',context_dict)
 
