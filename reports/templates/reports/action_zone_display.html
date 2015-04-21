@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="page-header">
-                    <h1>{{ site.name }} <small>Actions Report by Zone</small></h1>
-                    {% if priority %}<h3>Priority : {{ priority }}</h3>{% endif %}
+                    <h1>{{ site.name }} {% if priority %} - {{ priority.description }}{% else %} - All{% endif %}<small> Actions Report by Zone</small></h1>
+                    <h3></h3>
                 </div>
             </div>
 

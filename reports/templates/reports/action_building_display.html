@@ -1,0 +1,50 @@
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="page-header">
+                    <h1>{{ building.route_seq }} ({{ building.title }}) <small>{{ title }}</small></h1>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-block btn-info hidden-print" onclick="window.print()">{% bootstrap_icon "print" %} Print</button>
+            </div>
+        </div>
+
+        <p class="lead">Type - {% if type %}{{ type }}{% else %}All{% endif %}</p>
+        <p class="lead">Priority - {% if priority %}{{ priority }}{% else %}All{% endif %}</p>
+
+
+
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <tr>
+                    <th>Elevation</th>
+                    <th>Type</th>
+                    <th>Finishing</th>
+                    <th>Action</th>
+                    <th>Units</th>
+                    <th>UOM</th>
+                    <th>Priority</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in survey_items %}
+                <tr>
+                    <th>{{ item.getElevation }}</th>
+                    <th>{{ item.getItem }}</th>
+                    <th>{{ item.getFinishingDescription }}</th>
+                    <th>{{ item.getActionDescription }}</th>
+                    <th>{{ item.unit }}</th>
+                    <th>{{ item.getUOM }}</th>
+                    <th>{{ item.getPriority }}</th>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+    </div>
+{% endblock content %}

@@ -125,9 +125,6 @@ def GenerateReport(request,type_id,report_id):
 				except Exception:
 					no_priority = True
 
-
-
-
 				site = Site.objects.all().filter(id=zone)[0]
 				site_zone = SiteGroup.objects.all().filter(site=site)
 
@@ -170,7 +167,8 @@ def GenerateReport(request,type_id,report_id):
 					priority_chosen = Priority.objects.filter(id=priority)[0]
 					context_dict = {'title':'Actions Report by Zone',
 					                'buildings':buildings,
-					                'site':site}
+					                'site':site,
+					                'priority':priority_chosen}
 
 					data = {}
 					for b in buildings:
@@ -191,6 +189,41 @@ def GenerateReport(request,type_id,report_id):
 
 		elif report_id in [3,6]:
 			form = BuildingForm(request.POST)
+
+			if report_id is 3 and form.is_valid():
+				no_type = False
+				no_priority = False
+				building = int(request.POST["building"])
+				try:
+					type = int(request.POST["type"])
+				except Exception:
+					no_type = True
+
+				try:
+					priority = int(request.POST["priority"])
+				except Exception:
+					no_priority = True
+
+				building = Building.objects.filter(id=building)[0]
+
+				if no_priority and no_type:
+					survey = Survey.objects.filter(building=building)
+					wanted_surveys = set()
+
+					for s in survey:
+						survey_items = SurveyItem.objects.filter(survey=s)
+						for si in survey_items:
+							wanted_surveys.add(si.id)
+
+					survey_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+
+					context_dict = {'title':'Actions Report By Building',
+					                'building':building,
+					                'survey':survey,
+					                'survey_items':survey_items}
+
+					return render(request,'reports/action_building_display.html',context_dict)
+
 		elif report_id in [4,7]:
 			form = ItemForm(request.POST)
 
