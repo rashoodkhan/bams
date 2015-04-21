@@ -65,4 +65,28 @@ class SurveyItem(models.Model):
 	def getPriority(self):
 		return self.priority.description
 
+	def getFinishingDescription(self):
+		finishing_codes = FinishingCode.objects.filter(code__in = self.finishing_code)
+		result = ""
+		for code in finishing_codes:
+			result = result + " " + code.description
+		return result
+
+	def getConditionDescription(self):
+		codes = ""
+		for x in self.condition:
+			codes = codes + " " + str(x.description)
+		return codes
+
+	def getActionDescription(self):
+		return self.action.description
+
+	def getSpecialReqDescription(self):
+		return self.special_requirement.description
+
+	def getElevation(self):
+		return self.survey.elevation
+
+
+
 

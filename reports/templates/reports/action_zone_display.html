@@ -1,0 +1,64 @@
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="page-header">
+                    <h1>{{ site.name }} <small>Actions Report by Zone</small></h1>
+                    {% if priority %}<h3>Priority : {{ priority }}</h3>{% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-block btn-info hidden-print" onclick="window.print()">{% bootstrap_icon "print" %} Print</button>
+            </div>
+        </div>
+
+        {% for key,values in data.iteritems %}
+            {% if values|length > 0 %}
+                <h2>{{ key }}</h2>
+                <hr>
+                {% for v in values %}
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Elevation</th>
+
+                            <th>Type</th>
+
+                            <th>
+                                Finishing
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Units
+                            </th>
+                            <th>
+                                UOM
+                            </th>
+                            <th>
+                                Priority
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>{{ v.getElevation }}</th>
+                            <th>{{ v.getItem }}</th>
+                            <th>{{ v.getFinishingDescription }}</th>
+                            <th>{{ v.getActionDescription }}</th>
+                            <th>{{ v.unit }}</th>
+                            <th>{{ v.getUOM }}</th>
+                            <th>{{ v.getPriority }}</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

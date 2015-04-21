@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from models import ReportMetaData as RMD,ReportType
-from survey.models import SurveyItem, Survey
+from survey.models import SurveyItem, Survey, Site, SiteGroup
 from forms import *
 
 def index(request):
@@ -109,11 +109,69 @@ def GenerateReport(request,type_id,report_id):
 					return render(request,'reports/action_priority_display.html',context_dict)
 
 			if report_id is 8 and form.is_valid():
+				#IMPLEMENT COST REPORT FOR PRIORITY
 				pass
 
 
 		elif report_id in [2,5]:
 			form = ZoneForm(request.POST)
+
+			if report_id is 2 and form.is_valid():
+				no_priority = False
+				zone = int(request.POST["zone"])
+				try:
+					priority = int(request.POST["priority"])
+				except Exception:
+					no_priority = True
+
+				site = Site.objects.all().filter(id=zone)[0]
+				site_zone = SiteGroup.objects.all().filter(site=site)
+
+				wanted_buildings = set()
+
+				"""
+					Mother of Loops!
+					Nested four for loops! Going deep and deep to get the data ;)
+
+					P.S - Don't try to calculate the complexity. It works like a charm!
+					Or at least I think it does work like a charm!
+				"""
+				for s in site_zone:
+					buildings_temp = Building.objects.filter(site_zone=s)
+					for b in buildings_temp:
+						wanted_buildings.add(b.id)
+
+				buildings = Building.objects.filter(pk__in = wanted_buildings)
+
+				print ""
+				print buildings
+				print ""
+
+				if no_priority:
+					context_dict = {'title':'Actions Report by Zone',
+					                'buildings':buildings,
+					                'site':site}
+
+					data = {}
+					for b in buildings:
+						surveys_temp = Survey.objects.filter(building=b)
+						wanted_surveys = set()
+						for survey in surveys_temp:
+							survey_items = SurveyItem.objects.filter(survey=survey)
+							for item in survey_items:
+								wanted_surveys.add(item.id)
+						survey_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+						data[str(b.route_seq)] = survey_items
+						print survey_items
+					context_dict['data'] = data
+
+					print ""
+					print data
+					print ""
+
+					return render(request,'reports/action_zone_display.html',context_dict)
+
+
 		elif report_id in [3,6]:
 			form = BuildingForm(request.POST)
 		elif report_id in [4,7]:
