@@ -6,9 +6,10 @@
 
         <div class="row">
             <div class="col-md-4">
-                <form method="post" class="form" {% if added == 1 %} action="/rates/add"
+                <form method="post" autocomplete="off" class="form" {% if added == 1 %} action="/rates/add"
                 {% else %} action="/rates/{{ rate_id }}/edit" {% endif %}>
                     {% csrf_token %}
+                    {% bootstrap_form_errors form %}
                     {% bootstrap_form form %}
                     {% buttons %}
                         <button type="submit" class="btn btn-primary">

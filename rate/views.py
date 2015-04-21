@@ -13,6 +13,8 @@ def add_rate(request):
 			form.save(commit=True)
 			rates = Rate.objects.all()
 			return render(request,'rate/rates.html',{'rates':rates,'success_added':1})
+		else:
+			return render(request,'rate/add_rate.html',{'form':form,'added':1})
 	form = RateForm()
 	return render(request,'rate/add_rate.html',{'form':form,'added':1})
 
