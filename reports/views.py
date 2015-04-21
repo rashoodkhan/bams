@@ -246,6 +246,46 @@ def GenerateReport(request,type_id,report_id):
 
 					return render(request,'reports/action_building_display.html',context_dict)
 
+				if no_type is False:
+					type_chosen = Type.objects.filter(pk=type)
+					survey = Survey.objects.filter(building=building,type=type_chosen)
+					wanted_surveys = set()
+
+					for s in survey:
+						survey_items = SurveyItem.objects.filter(survey=s)
+						for si in survey_items:
+							wanted_surveys.add(si.id)
+
+					survey_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+
+					context_dict = {'title':'Actions Report By Building',
+					                'building':building,
+					                'survey':survey,
+					                'survey_items':survey_items,
+					                'type':type_chosen[0].name}
+
+					return render(request,'reports/action_building_display.html',context_dict)
+
+				if no_priority is False:
+					priority_chosen = Priority.objects.filter(pk=priority)
+					survey = Survey.objects.filter(building=building)
+					wanted_surveys = set()
+
+					for s in survey:
+						survey_items = SurveyItem.objects.filter(survey=s,priority=priority_chosen)
+						for si in survey_items:
+							wanted_surveys.add(si.id)
+
+					survey_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+
+					context_dict = {'title':'Actions Report By Building',
+					                'building':building,
+					                'survey':survey,
+					                'survey_items':survey_items,
+					                'priority':priority_chosen[0].description}
+
+					return render(request,'reports/action_building_display.html',context_dict)
+
 
 		elif report_id in [4,7]:
 			form = ItemForm(request.POST)
