@@ -290,6 +290,71 @@ def GenerateReport(request,type_id,report_id):
 		elif report_id in [4,7]:
 			form = ItemForm(request.POST)
 
+			if report_id is 4 and form.is_valid():
+				no_type = False
+				no_priority = False
+				item = int(request.POST["item"])
+
+				try:
+					type = int(request.POST["type"])
+				except Exception:
+					no_type = True
+
+				try:
+					priority = int(request.POST["priority"])
+				except Exception:
+					no_priority = True
+
+				item = ItemCode.objects.filter(pk=item)[0]
+
+				print no_priority
+				print no_type
+
+				if no_type and no_priority:
+					survey_items = SurveyItem.objects.filter(item=item)
+					context_dict = {'title':'Actions Required by Item',
+					                'survey_items':survey_items,
+					                'item':item}
+					return render(request,'reports/action_items_display.html',context_dict)
+
+				if no_type is False and no_priority is False:
+					type_chosen = Type.objects.filter(pk=type)
+					priority_chosen = Priority.objects.filter(pk=priority)
+
+					survey = Survey.objects.filter(type=type_chosen)
+					survey_items = SurveyItem.objects.filter(item=item,survey=survey,priority=priority_chosen)
+
+					context_dict = {'title':'Actions Required by Item',
+					                'survey_items':survey_items,
+					                'priority':priority_chosen[0].description,
+					                'type':type_chosen[0].name,
+					                'item':item}
+
+					return render(request,'reports/action_items_display.html',context_dict)
+
+				if no_type is False:
+					type_chosen = Type.objects.filter(pk=type)
+					survey = Survey.objects.filter(type=type_chosen)
+					survey_items = SurveyItem.objects.filter(item=item,survey=survey)
+
+					context_dict = {'title':'Actions Required by Item',
+					                'survey_items':survey_items,
+					                'type':type_chosen[0].name,
+					                'item':item}
+
+					return render(request,'reports/action_items_display.html',context_dict)
+
+				if no_priority is False:
+					priority_chosen = Priority.objects.filter(pk=priority)
+					survey_items = SurveyItem.objects.filter(item=item,priority=priority_chosen)
+
+					context_dict = {'title':'Actions Required by Item',
+					                'survey_items':survey_items,
+					                'priority':priority_chosen[0].description,
+					                'item':item}
+
+					return render(request,'reports/action_items_display.html',context_dict)
+
 		pass
 	pass
 

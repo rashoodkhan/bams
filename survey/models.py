@@ -87,6 +87,9 @@ class SurveyItem(models.Model):
 	def getElevation(self):
 		return self.survey.elevation
 
+	def getRoute(self):
+		return self.survey.building.route_seq
+
 
 
 
