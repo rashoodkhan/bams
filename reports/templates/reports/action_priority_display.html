@@ -2,16 +2,25 @@
 {% load bootstrap3 %}
 {% block content %}
     <div class="container">
+
+        <div class="row">
+            <div class="col-md-10">
         <div class="page-header">
             <h1>{{ building.route_seq }} ({{ building.title }}) <small>{{ title }}</small></h1>
         </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-info hidden-print" onclick="window.print()">{% bootstrap_icon "print" %} Print</button>
+            </div>
+        </div>
 
         {% for key,values in data.iteritems %}
-            <h2>{{ key }}</h2>
-            <hr>
-            {% for v in values %}
-                <table class="table table-hover">
-                    <thead>
+            {% if values|length > 0 %}
+                <h2>{{ key }}</h2>
+                <hr>
+                {% for v in values %}
+                    <table class="table table-bordered table-striped">
+                        <thead>
                         <tr>
                             <th>
                                 Item
@@ -35,36 +44,37 @@
                                 Remarks
                             </th>
                         </tr>
-                    </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            <p class="lead">{{ v.getItem }}</p>
-                        </th>
-                        <th>
-                            <p class="lead">{{ v.getFinishingCode }}</p>
-                        </th>
-                        <th>
-                            <p class="lead">
-                                {{ v.getCondition }}
-                            </p>
-                        </th>
-                        <th>
-                            <p class="lead">{{ v.unit }}</p>
-                        </th>
-                        <th>
-                            <p class="lead">{{ v.getUOM }}</p>
-                        </th>
-                        <th>
-                            <p class="lead">{{ v.getSpecialReq }}</p>
-                        </th>
-                        <th>
-                            <p class="lead">{{ v.remarks }}</p>
-                        </th>
-                    </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>
+                                <p>{{ v.getItem }}</p>
+                            </th>
+                            <th>
+                                <p>{{ v.getFinishingCode }}</p>
+                            </th>
+                            <th>
+                                <p>
+                                    {{ v.getCondition }}
+                                </p>
+                            </th>
+                            <th>
+                                <p>{{ v.unit }}</p>
+                            </th>
+                            <th>
+                                <p>{{ v.getUOM }}</p>
+                            </th>
+                            <th>
+                                <p>{{ v.getSpecialReq }}</p>
+                            </th>
+                            <th>
+                                <p>{{ v.remarks }}</p>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock content %}
