@@ -39,5 +39,5 @@ class SurveyItemForm(ModelForm):
 
 	class Meta:
 		model = SurveyItem
-		fields = ['item','action','unit','uom','special_requirement','priority','remarks']
+		fields = ['item','action','total_unit','damaged_unit','uom','special_requirement','priority','remarks']
 
