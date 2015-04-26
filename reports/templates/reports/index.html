@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Action Reports</h2>
             <hr>
             <table class="table table-hover">
@@ -39,7 +39,7 @@
         </table>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Cost Reports</h2>
             <hr>
             <table class="table table-hover">
@@ -68,36 +68,6 @@
             </tbody>
         </table>
 
-        </div>
-
-        <div class="col-md-4">
-            <h2>Survey Reports</h2>
-            <hr>
-            <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>
-                    Report Name
-                </th>
-                <th>
-                    View
-                </th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% for d in survey_reports %}
-                <tr>
-                    <td>
-                        <p class="lead">{{ d.name }}</p>
-                    </td>
-                    <th scope="row">
-                        <a type="button" class="btn btn-success btn-block" href="/reports/{{ survey_type.id }}/{{ d.id }}">{% bootstrap_icon "file" %} View</a>
-                    </th>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
         </div>
     </div>
 </div>
