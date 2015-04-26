@@ -35,7 +35,6 @@ class SurveyForm(ModelForm):
 				self.add_error('type',msg)
 
 class SurveyItemForm(ModelForm):
-	types = forms.ModelMultipleChoiceField(queryset=FinishingCode.objects.all())
 	conditions = forms.ModelMultipleChoiceField(queryset=SurfaceCode.objects.all())
 
 	class Meta:

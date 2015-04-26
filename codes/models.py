@@ -80,14 +80,6 @@ class ItemCode(models.Model):
 	def __str__(self):
 		return self.code
 
-class FinishingCode(models.Model):
-	item = models.ForeignKey(ItemCode)
-	code = models.CharField('Code',max_length=30)
-	description = models.CharField('Description', max_length=300)
-
-	def __str__(self):
-		return self.code
-
 class SurfaceCode(models.Model):
 	item = models.ForeignKey(ItemCode)
 	code = models.CharField('Code',max_length=30)

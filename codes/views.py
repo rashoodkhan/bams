@@ -63,9 +63,6 @@ def edit(request, code_id):
 	elif code_id == 9:
 		results = ItemCode.objects.all()
 
-	elif code_id == 10:
-		results = FinishingCode.objects.all()
-
 	elif code_id == 12:
 		results = ActionCode.objects.all()
 
@@ -115,9 +112,6 @@ def add(request, code_id):
 		elif code_id == 9:
 			form = ItemCodeForm(request.POST)
 
-		elif code_id == 10:
-			form = FinishingCodeForm(request.POST)
-
 		elif code_id == 11:
 			form = SurfaceCodeForm(request.POST)
 
@@ -160,8 +154,6 @@ def add(request, code_id):
 	elif code_id == 9:
 		result = ItemCodeForm()
 
-	elif code_id == 10:
-		result = FinishingCodeForm()
 
 	elif code_id == 11:
 		result = SurfaceCodeForm()
@@ -238,10 +230,6 @@ def edit_code(request, code_id, id):
 			x = data.filter(pk=id)[0]
 			form = ItemCodeForm(request.POST, instance=x)
 
-		elif code_id == 10:
-			data = FinishingCode.objects.all()
-			x = data.filter(pk=id)[0]
-			form = FinishingCodeForm(request.POST, instance=x)
 
 		elif code_id == 11:
 			data = SurfaceCode.objects.all()
@@ -302,10 +290,6 @@ def edit_code(request, code_id, id):
 	elif code_id == 9:
 		x = ItemCode.objects.all().filter(pk=id)
 		form = ItemCodeForm(instance=x[0])
-
-	elif code_id == 10:
-		x = FinishingCode.objects.all().filter(pk=id)
-		form = FinishingCodeForm(instance=x[0])
 
 	elif code_id == 11:
 		x = SurfaceCode.objects.all().filter(pk=id)

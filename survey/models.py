@@ -25,7 +25,6 @@ class Survey(models.Model):
 class SurveyItem(models.Model):
 	survey = models.ForeignKey(Survey)
 	item = models.ForeignKey(ItemCode)
-	finishing_code = ArrayField(models.CharField(max_length=100))
 	condition = ArrayField(models.CharField(max_length=100))
 	action = models.ForeignKey(ActionCode)
 	unit = models.IntegerField(default=0)
@@ -40,12 +39,6 @@ class SurveyItem(models.Model):
 
 	def getItem(self):
 		return self.item.description
-
-	def getFinishingCode(self):
-		codes = ""
-		for x in self.finishing_code:
-			codes = codes + " " + str(x)
-		return codes
 
 	def getCondition(self):
 		codes = ""
@@ -64,13 +57,6 @@ class SurveyItem(models.Model):
 
 	def getPriority(self):
 		return self.priority.description
-
-	def getFinishingDescription(self):
-		finishing_codes = FinishingCode.objects.filter(code__in = self.finishing_code)
-		result = ""
-		for code in finishing_codes:
-			result = result + " " + code.description
-		return result
 
 	def getConditionDescription(self):
 		codes = ""

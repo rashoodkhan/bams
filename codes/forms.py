@@ -47,10 +47,6 @@ class ItemCodeForm(ModelForm):
 		model = ItemCode
 		fields = ['type','code','description','specification']
 
-class FinishingCodeForm(ModelForm):
-	class Meta:
-		model = FinishingCode
-		fields = ['item','code','description']
 
 class SurfaceCodeForm(ModelForm):
 	class Meta:
