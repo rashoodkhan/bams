@@ -80,6 +80,15 @@ class SurveyItem(models.Model):
 	def getType(self):
 		return self.survey.type.name
 
+	def unit(self):
+		return self.damaged_unit
+
+	def all_unit(self):
+		return self.total_unit
+
+	def getTypeID(self):
+		return self.survey.type
+
 
 
 

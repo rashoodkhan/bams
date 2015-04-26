@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from models import ReportMetaData as RMD,ReportType
-from survey.models import SurveyItem, Survey, Site, SiteGroup
+from survey.models import SurveyItem, Survey, Site, SiteGroup, ActionCode, UnitOfMeasure as UOM
 from rate.models import Rate
 from forms import *
 
@@ -308,16 +309,36 @@ def GenerateReport(request,type_id,report_id):
 
 
 				if no_type and no_priority:
+					result = {}
 					for s in survey:
 						survey_items = SurveyItem.objects.filter(survey=s)
-						for item in s:
+						for item in survey_items:
 							wanted_surveys.add(item.id)
 
 					surveys_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+					total = 0
+					for s in surveys_items:
 
-					for s in survey_items:
-						# rate = Rate.objects.filter(item=s.item,type=s.getType(),fini)
-						pass
+						try:
+							rate = Rate.objects.filter(item=s.item,type=s.getTypeID,unit=s.uom,action_code=s.action)[0]
+							cost = int(rate.rate) * int(s.damaged_unit)
+							total = total + cost
+							if s.getElevation() in result:
+								result[s.getElevation()] += cost
+							else:
+								result[s.getElevation()] = cost
+						except Exception:
+							return HttpResponse("Rate Could Not Be Found")
+
+					context_dict = {'title':'Cost Report by Building',
+					                'data':result,
+					                'building':building,
+					                'total':total}
+
+					return render(request,'reports/cost_building_display.html',context_dict)
+
+
+
 
 
 

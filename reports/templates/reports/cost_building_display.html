@@ -1,0 +1,45 @@
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-10">
+                <div class="page-header">
+                    <h1>{{ building.route_seq }} ({{ building.title }}) <small>{{ title }}</small></h1>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-block btn-info hidden-print" onclick="window.print()">{% bootstrap_icon "print" %} Print</button>
+            </div>
+        </div>
+
+        <p class="lead">Type - {% if type %}{{ type }}{% else %}All{% endif %}</p>
+        <p class="lead">Priority - {% if priority %}{{ priority }}{% else %}All{% endif %}</p>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Room No/Elevation</th>
+                <th>Cost (Dhs)</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for key,value in data.iteritems %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <th>{{ value }}</th>
+                </tr>
+            {% endfor %}
+            {% if total %}
+                <tr>
+                    <th><i>Total</i></th>
+                    <th><i>{{ total }}</i></th>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

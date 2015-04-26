@@ -37,17 +37,12 @@ def add_building_data(request,building_id):
 			survey_data.survey = building
 			survey_data.cost = 0.0
 
-			finish_codes = form.cleaned_data['types']
-			f_codes = []
-			for f in finish_codes:
-				f_codes.append(str(f.code))
 
 			surface_states = form.cleaned_data['conditions']
 			s_codes = []
 			for s in surface_states:
 				s_codes.append(str(s.code))
 
-			survey_data.finishing_code = f_codes
 			survey_data.condition = s_codes
 
 			survey_data.save()
