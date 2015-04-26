@@ -90,6 +90,9 @@ class SurveyItem(models.Model):
 	def getRoute(self):
 		return self.survey.building.route_seq
 
+	def getType(self):
+		return self.survey.type.name
+
 
 
 

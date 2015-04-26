@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from models import ReportMetaData as RMD,ReportType
 from survey.models import SurveyItem, Survey, Site, SiteGroup
+from rate.models import Rate
 from forms import *
 
 def index(request):
@@ -285,6 +286,39 @@ def GenerateReport(request,type_id,report_id):
 					                'priority':priority_chosen[0].description}
 
 					return render(request,'reports/action_building_display.html',context_dict)
+
+			if report_id is 6 and form.is_valid():
+				no_type = False
+				no_priority = False
+
+				building = int(request.POST["building"])
+				try:
+					type = int(request.POST["type"])
+				except Exception:
+					no_type = True
+
+				try:
+					priority = int(request.POST["priority"])
+				except Exception:
+					no_priority = True
+
+				building = Building.objects.filter(pk=building)[0]
+				survey = Survey.objects.filter(building=building)
+				wanted_surveys = set()
+
+
+				if no_type and no_priority:
+					for s in survey:
+						survey_items = SurveyItem.objects.filter(survey=s)
+						for item in s:
+							wanted_surveys.add(item.id)
+
+					surveys_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+
+					for s in survey_items:
+						# rate = Rate.objects.filter(item=s.item,type=s.getType(),fini)
+						pass
+
 
 
 		elif report_id in [4,7]:
