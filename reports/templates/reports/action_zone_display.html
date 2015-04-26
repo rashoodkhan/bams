@@ -18,33 +18,35 @@
             {% if values|length > 0 %}
                 <h2>{{ key }}</h2>
                 <hr>
-                {% for v in values %}
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Elevation</th>
 
-                            <th>Type</th>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Elevation</th>
 
-                            <th>
-                                Action
-                            </th>
-                            <th>
-                                All Units
-                            </th>
-                            <th>
-                                Damaged Units
-                            </th>
-                            <th>
-                                UOM
-                            </th>
-                            <th>
-                                Priority
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                        <th>Type</th>
+
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            All Units
+                        </th>
+                        <th>
+                            Damaged Units
+                        </th>
+                        <th>
+                            UOM
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in values %}
                         <tr>
+
                             <th>{{ v.getElevation }}</th>
                             <th>{{ v.getItem }}</th>
                             <th>{{ v.getActionDescription }}</th>
@@ -52,10 +54,12 @@
                             <th>{{ v.unit }}</th>
                             <th>{{ v.getUOM }}</th>
                             <th>{{ v.getPriority }}</th>
+
                         </tr>
-                        </tbody>
-                    </table>
-                {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
             {% endif %}
         {% endfor %}
     </div>
