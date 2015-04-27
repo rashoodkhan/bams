@@ -337,6 +337,38 @@ def GenerateReport(request,type_id,report_id):
 
 					return render(request,'reports/cost_building_display.html',context_dict)
 
+			if no_type is False and no_priority is False:
+				type_chosen = Type.objects.filter(pk=type)
+				priority_chosen = Priority.objects.filter(pk=priority)
+				result = {}
+				survey = survey.filter(type=type_chosen)
+				wanted_surveys = set()
+
+				for s in survey:
+					survey_items = SurveyItem.objects.filter(survey=s,priority=priority_chosen)
+					for item in survey_items:
+						wanted_surveys.add(item.id)
+
+				surveys_items = SurveyItem.objects.filter(pk__in = wanted_surveys)
+				total = 0
+				for s in surveys_items:
+					try:
+						rate = Rate.objects.filter(item=s.item,type=s.getTypeID,unit=s.uom,action_code=s.action)[0]
+						total = total + cost
+						cost = int(rate.rate) * int(s.damaged_unit)
+						if s.getElevation() in result:
+							result[s.getElevation()] += cost
+						else:
+							result[s.getElevation()] = cost
+					except Exception:
+						return HttpResponse("Rate could not be found")
+					context_dict = {'title':'Cost Report By Building',
+					                'data':result,
+					                'building':building,
+					                'total':total,
+					                'type':type_chosen,
+					                'priority':priority_chosen}
+
 
 
 
