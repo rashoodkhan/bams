@@ -41,3 +41,8 @@ class SurveyItemForm(ModelForm):
 		model = SurveyItem
 		fields = ['item','action','total_unit','damaged_unit','uom','special_requirement','priority','remarks']
 
+class DrawingForm(ModelForm):
+	class Meta:
+		model = Drawing
+		fields = ['name','description','file','survey']
+

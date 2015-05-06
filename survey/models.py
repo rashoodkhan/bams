@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from codes.models import *
 
+
 class Survey(models.Model):
 	building = models.ForeignKey(Building)
 	elevation = models.CharField(max_length=300)
@@ -22,6 +23,7 @@ class Survey(models.Model):
 	def pp(self):
 		return self.getRoute() + " " + self.getElevation() + " " + self.getType()
 
+
 class SurveyItem(models.Model):
 	survey = models.ForeignKey(Survey)
 	item = models.ForeignKey(ItemCode)
@@ -32,8 +34,8 @@ class SurveyItem(models.Model):
 	uom = models.ForeignKey(UnitOfMeasure)
 	special_requirement = models.ForeignKey(SpecialRequirementCode)
 	priority = models.ForeignKey(Priority)
-	remarks = models.CharField(max_length=300,blank=True)
-	cost = models.DecimalField(max_digits=20,decimal_places=2,blank=True)
+	remarks = models.CharField(max_length=300, blank=True)
+	cost = models.DecimalField(max_digits=20, decimal_places=2, blank=True)
 
 	def __str__(self):
 		return self.survey.__str__() + " :: " + self.item.code
@@ -88,6 +90,23 @@ class SurveyItem(models.Model):
 
 	def getTypeID(self):
 		return self.survey.type
+
+
+import os
+
+
+def get_upload_path_rest(self, filename):
+	return os.path.join("drawings", "%d" % self.id, filename)
+
+
+class Drawing(models.Model):
+	name = models.CharField('Drawing Name', max_length=200)
+	description = models.TextField('Drawing Description', max_length=500)
+	file = models.FileField('Drawing', upload_to=get_upload_path_rest)
+	survey = models.ForeignKey(Survey)
+
+	def __str__(self):
+		return self.name
 
 
 
