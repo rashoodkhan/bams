@@ -1,0 +1,25 @@
+{% extends 'codes/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron"><h1>Survey | {% if edit_data == 1 %}Edit{% else %}Add{% endif %} Drawing</h1>
+        <p class="lead">The drawing for each building can be uploaded. Please upload only PDF documents only. A building
+        is identified using the combination of Route Sequence, Room No/Elevation and Type (Internal/External).</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-0 col-md-5">
+                <form autocomplete="off" method="post" class="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form_errors form %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary btn-block">
+                            {% bootstrap_icon "plus" %} {% if edit_data == 1 %}Edit{% else %}Add{% endif %} Drawing
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

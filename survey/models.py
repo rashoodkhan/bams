@@ -96,13 +96,13 @@ import os
 
 
 def get_upload_path_rest(self, filename):
-	return os.path.join("drawings", "%d" % self.id, filename)
+	return os.path.join("drawings", filename)
 
 
 class Drawing(models.Model):
 	name = models.CharField('Drawing Name', max_length=200)
 	description = models.TextField('Drawing Description', max_length=500)
-	file = models.FileField('Drawing', upload_to=get_upload_path_rest)
+	file = models.FileField('Drawing File', upload_to=get_upload_path_rest)
 	survey = models.ForeignKey(Survey)
 
 	def __str__(self):

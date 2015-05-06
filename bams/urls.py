@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from django.conf.urls.static import static
+import settings
 urlpatterns = [
     # Examples:
     # url(r'^$', 'bams.views.home', name='home'),
@@ -18,6 +19,8 @@ urlpatterns = [
     url(r'^rates/add','rate.views.add_rate',name="add_rate"),
     url(r'^rates/?','rate.views.index',name="rates_index"),
 
+    url(r'survey/(?P<building_id>\d+)/drawing/add/?','survey.views.add_drawing',name="add_drawing"),
+    url(r'survey/(?P<building_id>\d+)/drawing/?','survey.views.drawing_index',name="drawing"),
     url(r'^survey/(?P<building_id>\d+)/edit/(?P<survey_id>\d+)/?','survey.views.edit_building_data',name="edit_building_data"),
     url(r'^survey/(?P<building_id>\d+)/add/?','survey.views.add_building_data',name="add_building_data"),
     url(r'^survey/(?P<building_id>\d+)/?','survey.views.building_survey',name="building_survey"),
@@ -27,5 +30,4 @@ urlpatterns = [
     url(r'^reports/(?P<type_id>\d+)/(?P<report_id>\d+)/submit/?','reports.views.GenerateReport',name="GenerateReport"),
     url(r'^reports/(?P<type_id>\d+)/(?P<report_id>\d+)/?','reports.views.getSurveyForm',name="getSurveyForm"),
     url(r'^reports/?','reports.views.index',name="reports_index"),
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

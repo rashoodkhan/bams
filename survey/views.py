@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from models import Survey,SurveyItem
-from forms import SurveyForm, SurveyItemForm
+from django.shortcuts import render,redirect
+from models import Survey,SurveyItem, Drawing
+from forms import SurveyForm, SurveyItemForm, DrawingForm
 def index(request):
 	surveys = Survey.objects.all()
 	return render(request,'survey/survey.html',{'data':surveys})
@@ -86,3 +86,24 @@ def edit_building_data(request,building_id,survey_id):
 	s_codes = survey.condition
 	form = SurveyItemForm(instance=survey,initial={'types':f_codes,'conditions':s_codes})
 	return render(request,'survey/survey_data_form.html',{'form':form,'edit_data':1})
+
+def add_drawing(request,building_id):
+	if request.method == "POST":
+		form = DrawingForm(request.POST, request.FILES)
+		if form.is_valid():
+			drawing = form.save(commit=True)
+			drawing.save()
+			return redirect('/survey/'+building_id+'/drawing/')
+		else:
+			return render(request,'survey/drawing_view_form.html',{'form':form})
+	else:
+		form = DrawingForm()
+		return render(request,'survey/drawing_add_form.html',{'form':form})
+
+def drawing_index(request,building_id):
+	survey = Survey.objects.filter(pk=building_id)
+	print len(survey)
+	drawings = Drawing.objects.filter(survey=survey)
+	print len(drawings)
+
+	return render(request,'survey/drawing_view_form.html',{'data':drawings})

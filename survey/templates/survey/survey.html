@@ -20,6 +20,13 @@
             </div>
         {% endif %}
 
+        {% if success_added == 2 %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Success!</strong> The drawing has been added successfully!
+            </div>
+        {% endif %}
+
         <table class="table table-hover">
             <thead>
             <tr>
@@ -36,8 +43,12 @@
                     Add Data
                 </th>
                 <th>
-                    View
+                    View Data
                 </th>
+                <th>
+                    Add Drawing
+                </th>
+                <th>View Drawings</th>
             </tr>
             </thead>
 
@@ -58,6 +69,12 @@
                     </th>
                     <th scope="row">
                         <a type="button" class="btn btn-primary btn-block" href="/survey/{{ d.id}}/">View Data</a>
+                    </th>
+                    <th scope="row">
+                        <a type="button" class="btn btn-success btn-block" href="/survey/{{ d.id }}/drawing/add">Add Drawing</a>
+                    </th>
+                    <th scope="row">
+                        <a type="button" class="btn btn-primary btn-block" href="/survey/{{ d.id }}/drawing/">View Drawings</a>
                     </th>
                 </tr>
             {% endfor %}
